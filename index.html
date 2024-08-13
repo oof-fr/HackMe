@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Button Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .login-form {
+            max-width: 300px;
+            margin: auto;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .login-form button {
+            padding: 10px;
+            width: 100%;
+        }
+        .regular-user-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: blue;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .admin-panel {
+            display: none;
+            margin-top: 20px;
+        }
+        .admin-panel.active {
+            display: block;
+        }
+        .admin-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vulnerable Training Site</h1>
+    
+    <div class="login-form">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <button class="regular-user-button">BLUE BUTTON</button>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+        <h2>Admin Panel</h2>
+        <p>Welcome to the admin panel. Only visible to admins.</p>
+        <p id="adminContent"></p>
+        <button class="admin-button">ADMIN BUTTON</button>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Vulnerable login check
+            if (username === 'admin' && password === 'password') {
+                document.getElementById('adminPanel').classList.add('active');
+                document.getElementById('adminContent').innerText = 'Admin privileges granted!';
+            } else {
+                alert('Invalid credentials');
+            }
+        });
+    </script>
+</body>
+</html>
